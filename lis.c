@@ -1,3 +1,13 @@
+/*
+Sample Input:
+9
+10 22 9 33 21 50 41 60 80
+Sample Output:
+Length of LIS: 6
+80	60	41	33	22	10
+
+*/
+
 #include<stdio.h>
 int arr[1001] = {};
 int len[1001] = {};
