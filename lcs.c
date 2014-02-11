@@ -1,3 +1,19 @@
+/*
+Sample input:
+BANANA
+ATANA
+
+Sample output:
+Top-down computation:
+Length of LCS: 4
+Sequence of length 4: AANA
+
+Bottom-up computation:
+Length of LCS: 4
+Sequence of length 4: AANA
+
+*/
+
 #include<stdio.h>
 #include<string.h>
 #define LIM 1001
