@@ -26,7 +26,6 @@ for i in range(2, lim, 1):
 		primes[x] = i
 		x = x + 1
 l = x
-print primes[l-1]**2
 def isprime(x):
 	if x < lim:
 		return arr[x]
