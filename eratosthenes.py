@@ -1,3 +1,14 @@
+# Need to add error-checking.
+# Sample Input 1:
+# Enter an integer ( <= 9998200081): 9992800079
+# Sample Output 1:
+# Not prime
+# 
+# Sample Input 2:
+# Enter an integer ( <= 9998200081): 9099999901
+# Sample Output 2:
+# Prime
+
 from math import sqrt
 lim = 100001
 arr = [1]*lim
@@ -15,23 +26,29 @@ for i in range(2, lim, 1):
 		primes[x] = i
 		x = x + 1
 l = x
-
+print primes[l-1]**2
 def isprime(x):
 	if x < lim:
 		return arr[x]
-	if lim*lim < x:
+	if primes[l-1]**2 < x:
 		return -1
 	for i in range(0, l):
-		if primes[i]*primes[i] > x:
-			return -1
-		if x % i == 0:
+		if primes[i]**2 > x:
+			return 1
+		if x % primes[i] == 0:
 			return 0
 	return 1
 
-n = int(raw_input("Enter a number: "))
-if n == 1:
+n = int(raw_input("Enter an integer ( <= 9998200081): "))
+if n == 1 or n == 0:
 	print "Neither prime nor composite"
-elif isprime(n):
+elif n < 0:
+	n = -n
+isp = isprime(n)
+if isp == 1:
 	print "Prime"
-else:
+elif isp == 0:
 	print "Not prime"
+else:
+	print "Cannot determine with current bounds."
+
