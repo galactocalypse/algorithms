@@ -49,6 +49,7 @@ int main(void){
 		scanf("%d", &val[i]);
 	}
 	printf("Max value: %d\n", knapsack01());
+	
 	/*
 	findinc();
 	for(i = 0; i <= n; i++){
@@ -57,6 +58,7 @@ int main(void){
 		}
 		printf("\n");
 	}
+	
 	printf("Selected items: ");
 	for(i = 1; i <= n; i++){
 		if(sel[i])printf("%d(%d) ", arr[i], val[i]);
