@@ -1,5 +1,18 @@
 /*
 	The easiest all pairs-shortest path algorithm, with a complexity of O(N^3), where N is the number of nodes in the graph.
+	
+	Sample Input:
+	4 4
+	0 1 5
+	0 3 10
+	1 2 3
+	2 3 1
+
+	Sample Output:
+	0	5	8	9
+	INF	0	3	4
+	INF	INF	0	1
+	INF	INF	INF	0
 */
 #include<stdio.h>
 #include<math.h>
