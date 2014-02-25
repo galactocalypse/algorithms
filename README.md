@@ -8,7 +8,8 @@ The files have a sample set of input and output at the top, and possibly comment
 If the math libraries don't link properly, try using the -lm flag.
 
 **e.g.:**
-gcc -o dfs -lm dfs.c 
+gcc -o dfs -lm dfs.c
+
 ./dfs &lt; dfs_inp
 
 ##Algorithms implemented so far
