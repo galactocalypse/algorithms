@@ -92,7 +92,7 @@ int main()
 	genlcp();
 	cerr << (clock() - cl) * 0.001 << endl;
 	for(int i = 0; i < L; i++)
-		cout << "'" << str + Pos[i].idx << "'\t" << lcparr[i] << endl;
+		cout << "'" << Pos[i].idx << "'\t" << lcparr[i] << endl;
 	
 	return 0;
 }
