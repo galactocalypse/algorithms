@@ -5,6 +5,13 @@
 	
 	This approach has a running time of O(nlogn) and uses O(n) auxiliary space.
 	
+	Sample input:
+	9
+	2 5 3 7 11 8 7 9 6
+
+	Sample output:
+	5
+	
 */
 
 #include<iostream>
