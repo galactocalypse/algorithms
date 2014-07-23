@@ -1,6 +1,8 @@
-#include<stdio.h>
-#include<malloc.h>
+#include<cstdio>
+#include<cstdlib>
+#include<queue>
 #include "bintree.h"
+using namespace std;
 
 node* makenode(int val, node* l, node* r){
 	node* n = (node*)malloc(sizeof(node*));
@@ -64,18 +66,56 @@ void add(node *root, int val){
 	_add(root, n);
 }
 
+void lottopdown(node *root){
+	/* Level order traversal, top to bottom. */
+	queue<node*> q;
+	q.push(root);
+	while(!q.empty()){
+		queue<node*> temp;
+		while(!q.empty()){
+			node* tp = q.front();
+			q.pop();
+			printf(" %d", tp->val);
+			if(tp->lchild)
+				temp.push(tp->lchild);
+			if(tp->rchild)
+				temp.push(tp->rchild);
+		}
+		q = temp;
+	}	
+}
+
+node* input(){
+	/* Takes the input of a BST. */
+	int n;
+	printf("Enter number of nodes to add: ");
+	scanf("%d", &n);
+	if(n == 0)
+		return NULL;
+	node *r = NULL;	
+	for(int i = 0; i < n; i++){
+		int x;
+		scanf("%d", &x);
+		if(r)
+			add(r, x);
+		else r = makenode(x, NULL, NULL);
+	}
+	return r;
+}
+
 int main(){
-	node *root = makenode(50, NULL, NULL);
-	add(root, 25);
-	add(root, 75);
-	
-	printf("In-order:");
-	traverseLMR(root);
-	printf("\nPre-order:");
-	traverseMLR(root);
-	printf("\nPost-order:");
-	traverseLRM(root);
-	printf("\n");
+	node *root = input();
+	if(root){
+		printf("In-order:");
+		traverseLMR(root);
+		printf("\nPre-order:");
+		traverseMLR(root);
+		printf("\nPost-order:");
+		traverseLRM(root);
+		printf("\nLOT Top-down:");
+		lottopdown(root);
+		printf("\n");
+	}
 	return 0;
 }
 
