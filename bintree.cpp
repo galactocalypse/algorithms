@@ -1,11 +1,22 @@
+/*
+	I wanted to do this entirely in C but didn't feel like
+	writing the stack and queue functionalities all over again.
+	Apart from the parts involving a stack/queue, the code is
+	C-compatible.
+*/
+
 #include<cstdio>
 #include<cstdlib>
 #include<queue>
+#include<stack>
 #include "bintree.h"
 using namespace std;
 
-node* makenode(int val, node* l, node* r){
-	node* n = (node*)malloc(sizeof(node*));
+node* makenode(int val, node *l, node *r){
+	/*
+		Creates and returns a new node with the specified values.
+	*/
+	node *n = (node *)malloc(sizeof(node *));
 	n->val = val;
 	n->lchild = l;
 	n->rchild = r;
@@ -20,6 +31,7 @@ void traverseLMR(node *root){
 	printf(" %d", root->val);
 	traverseLMR(root->rchild);
 }
+
 void traverseMLR(node *root){
 	/* Pre-order traversal of BST */
 	if(!root)
@@ -28,6 +40,7 @@ void traverseMLR(node *root){
 	traverseMLR(root->lchild);
 	traverseMLR(root->rchild);
 }
+
 void traverseLRM(node *root){
 	/* Post-order traversal of BST */
 	if(!root)
@@ -38,7 +51,7 @@ void traverseLRM(node *root){
 }
 
 
-void _add(node* root, node *n){
+void _add(node *root, node *n){
 	/* Adding a node to the BST at node root */
 	if(!root)
 		return;
@@ -69,6 +82,11 @@ void add(node *root, int val){
 void lottopdown(node *root){
 	/* Level order traversal, top to bottom. */
 	queue<node*> q;
+	/*
+	You may store either the pointers to the nodes or the actual 
+	values or any other associated value in queue.
+	Here, I'm storing the pointers to the nodes.
+	*/
 	q.push(root);
 	while(!q.empty()){
 		queue<node*> temp;
@@ -82,10 +100,102 @@ void lottopdown(node *root){
 				temp.push(tp->rchild);
 		}
 		q = temp;
-	}	
+	}
 }
 
-node* input(){
+void lotbottomup(node *root){
+	stack<node*> s;
+	queue<node*> q;
+	/*
+	You may push either the pointers to the nodes or the actual 
+	values or any other associated value to the stacks and queues.
+	Here, I'm pushing the pointers to the nodes. 
+	*/
+	q.push(root);
+	while(!q.empty()){
+		queue<node*> temp;
+		stack<node*> ts;
+		while(!q.empty()){
+			node* t = q.front();
+			q.pop();
+			ts.push(t);
+			if(t->lchild){
+				temp.push(t->lchild);
+			}
+			if(t->rchild){
+				temp.push(t->rchild);
+			}
+		}
+		q = temp;
+		while(!ts.empty()){
+			/*
+			The reason the elements are not directly pushed to
+			the main stack s is that it would reverse the order of
+			elements (left to right) at each level.
+			Storing to a separate stack does cost some extra time
+			and space, but preserves the left to right order.
+			*/
+			s.push(ts.top());
+			ts.pop();
+		}
+	}
+	while(!s.empty()){
+		printf(" %d", s.top()->val);
+		s.pop();
+	}
+}
+
+void zigzagH(node *root){
+	/*
+	Horizontal zigzag traversal. (First level left to right,
+	second level right to left, third left to right and so on.)
+
+	We we simply use a stack for reversing odd numbered levels.
+	*/
+	queue<node*> q;
+	/*
+	You may push either the pointers to the nodes or the actual 
+	values or any other associated value to the stacks and queues.
+	Here, I'm pushing the pointers to the nodes. 
+	*/
+	q.push(root);
+	int level = 0;
+	while(!q.empty()){
+		queue<node*> temp;
+		stack<node*> ts;
+		while(!q.empty()){
+			node* t = q.front();
+			q.pop();
+			if(level & 1){
+				ts.push(t);
+			}
+			else printf(" %d", t->val);
+			if(t->lchild){
+				temp.push(t->lchild);
+			}
+			if(t->rchild){
+				temp.push(t->rchild);
+			}
+		}
+		q = temp;
+		if(level & 1){
+			while(!ts.empty()){
+				/*
+				The reason the elements are not directly pushed to
+				the main stack s is that it would reverse the order of
+				elements (left to right) at each level.
+				Storing to a separate stack does cost some extra time
+				and space, but preserves the left to right order.
+				*/
+				printf(" %d", ts.top()->val);
+				ts.pop();
+			}
+		}
+		level++;
+	}
+}
+
+node * input(){
 	/* Takes the input of a BST. */
 	int n;
 	printf("Enter number of nodes to add: ");
@@ -114,6 +224,10 @@ int main(){
 		traverseLRM(root);
 		printf("\nLOT Top-down:");
 		lottopdown(root);
+		printf("\nLOT Bottom-up:");
+		lotbottomup(root);
+		printf("\nZigzag H:");
+		zigzagH(root);
 		printf("\n");
 	}
 	return 0;
