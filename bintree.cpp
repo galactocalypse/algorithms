@@ -207,25 +207,21 @@ node* lca(node *root, int a, int b){
 	had they been in the BST.
 	*/
 	
-	if(!root){
-		return NULL;
-	}
-
 	if(a > b){
 		return lca(root, b, a);
 	}
-
-	if(a <= root->val && b > root->val){
-		return root;
+	while(root){
+		if(a <= root->val && b > root->val){
+			break;
+		}
+		else if(a <= root->val && b <= root->val){
+			root = root->lchild;
+		}
+		else {
+			root = root->rchild;
+		}
 	}
-	
-	if(a <= root->val && b <= root->val){
-		return lca(root->lchild, a, b);
-	}
-	
-	else {
-		return lca(root->rchild, a, b);
-	}
+	return root;
 }
 
 node * input(){
