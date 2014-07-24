@@ -195,6 +195,39 @@ void zigzagH(node *root){
 	}
 }
 
+node* lca(node *root, int a, int b){
+	/*
+	Finally something that uses the BST property!
+	Starting from the root and traversing downwards towards 
+	the nodes and b, the LCA is the first node with its value
+	lying between a and b.
+	
+	This routine assumes that a and b are present in the BST.
+	If they are not, the answer is based on their positions 
+	had they been in the BST.
+	*/
+	
+	if(!root){
+		return NULL;
+	}
+
+	if(a > b){
+		return lca(root, b, a);
+	}
+
+	if(a <= root->val && b > root->val){
+		return root;
+	}
+	
+	if(a <= root->val && b <= root->val){
+		return lca(root->lchild, a, b);
+	}
+	
+	else {
+		return lca(root->rchild, a, b);
+	}
+}
+
 node * input(){
 	/* Takes the input of a BST. */
 	int n;
@@ -215,6 +248,7 @@ node * input(){
 
 int main(){
 	node *root = input();
+	int a, b;
 	if(root){
 		printf("In-order:");
 		traverseLMR(root);
@@ -228,7 +262,9 @@ int main(){
 		lotbottomup(root);
 		printf("\nZigzag H:");
 		zigzagH(root);
-		printf("\n");
+		printf("\nEnter two nodes to find the LCA of:");
+		scanf("%d %d", &a, &b);
+		printf("LCA of %d and %d: %d\n", a, b, lca(root, a, b)->val);
 	}
 	return 0;
 }

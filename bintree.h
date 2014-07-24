@@ -11,6 +11,9 @@ typedef struct node{
 */
 node* makenode(int, node*, node*);
 
+/* Routine for adding nodes to the BST. */
+void add(node *, int);
+
 /* In-order traversal. */
 void traverseLMR(node *);
 
@@ -29,6 +32,5 @@ void lotbottomup(node *);
 /* Level-order zigzag traversal. */
 void zigzagH(node *);
 
-/* Routine for adding nodes to the BST. */
-void add(node *, int);
-
+/* Lowest Common Ancestor. */
+node * lca(node *, node *, node *);
