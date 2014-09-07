@@ -23,6 +23,11 @@
 #define min(a, b) ((a)<(b)?(a):(b))
 #define LIM 1001
 
+typedef struct edge {
+	int s;
+	int d;
+	int w;
+} edge;
 
 int adj[LIM][LIM] = {};
 edge e[LIM];
@@ -32,11 +37,6 @@ int parent[LIM] = {};
 int rank[LIM] = {};
 int n, m;
 
-typedef struct edge {
-	int s;
-	int d;
-	int w;
-} edge;
 
 
 int cmp(const void *a, const void *b){
@@ -56,29 +56,34 @@ void printarr(int *arr, int n){
 }
 
 int find(int a){ // for disjoint set
-	while(a !=parent[a])
-		parent[a] = parent[a = parent[a]];
+	while(a !=parent[a]){
+		int p = parent[a];
+		parent[a] = parent[p];
+		a = p;
+	}
 	return parent[a];
 }
 
 int join(int a, int b){ // for disjoint set
 	int pa = find(a);
 	int pb = find(b);
-	if(pa == pb)return;
-	if(rank[pa] > rank[pb]){
-		parent[pb] = pa;
+	if(pa == pb){
+		return pa;
+	}
+	else if(rank[pa] > rank[pb]){
+		return (parent[pb] = pa);
 	}
 	else if(rank[pa] < rank[pb]){
-		parent[pa] = pb;
+		return (parent[pa] = pb);
 	}
 	else{
 		rank[pa]++;
-		parent[pb] = pa;
+		return (parent[pb] = pa);
 	}
 }
 
 int main(int argc, char **argv){
-	int i, j, s, d, w, temp;
+	int i, s, d, w;
 	scanf("%d %d", &n, &m);
 	
 	/* initializing disjoint set arrays*/

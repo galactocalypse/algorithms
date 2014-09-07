@@ -27,7 +27,7 @@ int parent[LIM] = {};
 
 int find(int i){
 	while(i != parent[i]){
-		parent[i] = parent[i = parent[i]];
+		parent[i] = parent[(i = parent[i])];
 	}
 	return i;
 }
@@ -37,12 +37,12 @@ int join(int i, int j){
 	int y = find(j);
 	if(x == y)return x;
 	if(rank[x] > rank[y])
-		parent[y] = x;
+		return (parent[y] = x);
 	else if(rank[x] < rank[y])
-		parent[x] = y;
+		return (parent[x] = y);
 	else{
 		rank[x]++;
-		parent[y] = x;
+		return (parent[y] = x);
 	}
 }
 
