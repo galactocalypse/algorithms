@@ -27,6 +27,7 @@ gcc -o dfs -lm dfs.c
 10. Floyd-Warshall
 11. Kruskal's Minimum Spanning Tree
 12. Quicksort
+13. Heapsort
 
 ##Feedback
 For pointing out any mistakes, suggesting changes or communication anything else, get in touch at adarsh_yagnik@yahoo.com
